@@ -75,7 +75,7 @@ ASN = input('Please enter the ASN: ')
 ASNinfo = getPeeringDB(ASN)['data'][0]
 ixs = ASNinfo['netixlan_set']
 commands = ''
-ASNdesc = ASNinfo['name'] + ' ' + ASNinfo['poc_set'][0]['email']
+ASNdesc = ASNinfo['name'] + ' (' + ASNinfo['poc_set'][0]['email'] + ')'
 MATCH_IX_LIST = getPeeringDB(ASNtoMatch)['data'][0]['netixlan_set']
 ixs_in_common = check_dupes(MATCH_IX_LIST,ixs)
 
