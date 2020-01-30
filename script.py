@@ -68,7 +68,7 @@ def check_dupes(dict1,dict2):
     dupes = []
     for ix in dict1:
         for ix2 in dict2:
-            if ix['name'] == ix2['name']: dupes.append(ix)
+            if ix['name'] == ix2['name']: dupes.append(ix2)
     return dupes
 
 ASN = input('Please enter the ASN: ')
