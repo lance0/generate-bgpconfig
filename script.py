@@ -82,7 +82,7 @@ ixs_in_common = check_dupes(MATCH_IX_LIST,ixs)
 for ix in ixs_in_common:
     for IX_NAME in settings['FRIENDLY_IX_NAMES']:
         #print('IX Name: ' + IX_NAME + '\n' + 'IX Friendly Name: ' + settings['FRIENDLY_IX_NAMES'].get(FRIENDLY_NAME))
-        print('Checking for ' + ix['name'] + ', against ' + IX_NAME)
+        #print('Checking for ' + ix['name'] + ', against ' + IX_NAME)
         if ix['name'] == IX_NAME:
             print('Found matching IX! ' + ix['name'])
             ix['name'] = settings['FRIENDLY_IX_NAMES'].get(IX_NAME)
