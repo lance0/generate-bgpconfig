@@ -3,11 +3,11 @@
         "Digital Realty Atlanta" : "ATL1-TIE",
         "Equinix IX Miami" : "MIA1-NOTAIX",
         "NYIIX" : "NYC1-NYIIX",
-        "DE-CIX New York" : "NYC1-DECIX",
+        "DE-CIX New York: DE-CIX New York Peering LAN" : "NYC1-DECIX",
         "FL-IX" : "MIA-FLIX",
-        "DE-CIX Dallas" : "DAL1-DECIX",
+        "DE-CIX Dallas: DE-CIX Dallas Peering LAN" : "DAL1-DECIX",
         "Equinix Dallas" : "DAL1-EQUINIX-PEER",
-        "DE-CIX Frankfurt" : "FRA1-DECIX"
+        "DE-CIX Frankfurt: DE-CIX Frankfurt Peering LAN" : "FRA1-DECIX"
     },
     "peeringdb_creds" : {
         "username" : "",
