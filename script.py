@@ -84,7 +84,7 @@ for ix in ixs_in_common:
         #print('IX Name: ' + IX_NAME + '\n' + 'IX Friendly Name: ' + settings['FRIENDLY_IX_NAMES'].get(FRIENDLY_NAME))
         #print('Checking for ' + ix['name'] + ', against ' + IX_NAME)
         if ix['name'] == IX_NAME:
-            print('Found matching IX! ' + ix['name'])
+            #print('Found matching IX! ' + ix['name'])
             ix['name'] = settings['FRIENDLY_IX_NAMES'].get(IX_NAME)
 
 
