@@ -95,18 +95,18 @@ for ix in ixs_in_common:
     groupipv4 = ix['ipaddr4']
     groupipv6 = ix['ipaddr6']
     #groupdesc = ixinfo['data'][0]['name_long'] + ' ' + ixinfo['data'][0]['tech_email']
-    commands += 'set protocols bgp group "' + groupname + '" neighbor ' + groupipv4 + ' mtu-discovery' + '\n'
-    commands += 'set protocols bgp group "' + groupname + '" neighbor ' + groupipv4 + ' import "' + groupname + '-ipv4-inbound' + '"\n'
-    commands += 'set protocols bgp group "' + groupname + '" neighbor ' + groupipv4 + ' export "' + groupname + '-ipv4-outbound'+ '"\n'
-    commands += 'set protocols bgp group "' + groupname + '" neighbor ' + groupipv4 + ' peer-as ' + str(ix['asn']) + '\n'
-    commands += 'set protocols bgp group "' + groupname + '" neighbor ' + groupipv4 + ' description "' + ASNdesc + '"\n'
-    commands += 'set protocols bgp group "' + groupname + '" neighbor ' + groupipv4 + ' family inet unicast' + '\n'
-    commands += 'set protocols bgp group "' + groupname + '" neighbor ' + groupipv6 + ' mtu-discovery' + '\n'
-    commands += 'set protocols bgp group "' + groupname + '" neighbor ' + groupipv6 + ' import "' + groupname + '-ipv6-inbound' + '"\n'
-    commands += 'set protocols bgp group "' + groupname + '" neighbor ' + groupipv6 + ' export "' + groupname + '-ipv6-outbound'+ '"\n'
-    commands += 'set protocols bgp group "' + groupname + '" neighbor ' + groupipv6 + ' peer-as ' + str(ix['asn']) + '\n'
-    commands += 'set protocols bgp group "' + groupname + '" neighbor ' + groupipv6 + ' description "' + ASNdesc + '"\n'
-    commands += 'set protocols bgp group "' + groupname + '" neighbor ' + groupipv6 + ' family inet6 unicast' + '\n'
+    commands += 'set protocols bgp group ' + groupname + ' neighbor ' + groupipv4 + ' mtu-discovery' + '\n'
+    commands += 'set protocols bgp group ' + groupname + ' neighbor ' + groupipv4 + ' import ' + groupname + '-ipv4-inbound' + '\n'
+    commands += 'set protocols bgp group ' + groupname + ' neighbor ' + groupipv4 + ' export ' + groupname + '-ipv4-outbound'+ '\n'
+    commands += 'set protocols bgp group ' + groupname + ' neighbor ' + groupipv4 + ' peer-as ' + str(ix['asn']) + '\n'
+    commands += 'set protocols bgp group ' + groupname + ' neighbor ' + groupipv4 + ' description "' + ASNdesc + '"\n'
+    commands += 'set protocols bgp group ' + groupname + ' neighbor ' + groupipv4 + ' family inet unicast' + '\n'
+    commands += 'set protocols bgp group ' + groupname + ' neighbor ' + groupipv6 + ' mtu-discovery' + '\n'
+    commands += 'set protocols bgp group ' + groupname + ' neighbor ' + groupipv6 + ' import ' + groupname + '-ipv6-inbound' + '\n'
+    commands += 'set protocols bgp group ' + groupname + ' neighbor ' + groupipv6 + ' export ' + groupname + '-ipv6-outbound'+ '\n'
+    commands += 'set protocols bgp group ' + groupname + ' neighbor ' + groupipv6 + ' peer-as ' + str(ix['asn']) + '\n'
+    commands += 'set protocols bgp group ' + groupname + ' neighbor ' + groupipv6 + ' description "' + ASNdesc + '"\n'
+    commands += 'set protocols bgp group ' + groupname + ' neighbor ' + groupipv6 + ' family inet6 unicast' + '\n'
 
 print(commands)
 f = open('bgp_config.txt','w+')
