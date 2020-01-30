@@ -35,7 +35,9 @@ def getPeeringDB(ASN):
     HTTP_OK = 200
     pdb_url = 'https://api.peeringdb.com/api/net?asn__in=%s&depth=2' % ASN
     #print("Fetching PeeringDB info for %s" % ASN)
-    if peeringdb_username and peeringdb_password: r = requests.get(pdb_url, auth=HTTPBasicAuth(peeringdb_username,peeringdb_password))
+    if peeringdb_username and peeringdb_password: 
+        r = requests.get(pdb_url, auth=HTTPBasicAuth(peeringdb_username,peeringdb_password))
+        print('Connecting to peeringdb with account ' + peeringdb_username)
     else: r = requests.get(pdb_url)
     if r.status_code != HTTP_OK:
         print("Got unexpected status code, exiting")
