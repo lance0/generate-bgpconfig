@@ -1,0 +1,2 @@
+✔ Only add IX's we are in @done(20-01-30 09:29)
+☐ Provide friendly names for each IX based on the ID from peeringdb, they will need to be mapped in a file or hard coded. Use these friendly names in the juniper BGP group instead of direct pull from peeringdb
