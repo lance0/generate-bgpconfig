@@ -1,6 +1,11 @@
-#from functions import *
-# copying functions.py into script.py so everything is a single file
 import requests
+import json
+from requests.auth import HTTPBasicAuth
+
+peeringdb_username = ''
+peeringdb_password = ''
+ASNtoMatch = '29802'
+
 
 def getIXInfo(id):
     """Function to connect to peeringDB and fetch IX information for a given IX
@@ -30,7 +35,8 @@ def getPeeringDB(ASN):
     HTTP_OK = 200
     pdb_url = 'https://api.peeringdb.com/api/net?asn__in=%s&depth=2' % ASN
     #print("Fetching PeeringDB info for %s" % ASN)
-    r = requests.get(pdb_url)
+    if peeringdb_username and peeringdb_password: r = requests.get(pdb_url, auth=HTTPBasicAuth(peeringdb_username,peeringdb_password))
+    else: r = requests.get(pdb_url)
     if r.status_code != HTTP_OK:
         print("Got unexpected status code, exiting")
         print("%s - %s" % (r.status, r.text))
@@ -38,9 +44,11 @@ def getPeeringDB(ASN):
     pdb_res = r.json()
     return pdb_res
 
+
 def intersection(list1,list2):
     returnList = [value for value in list1 if value in list2]
     return returnList
+
 
 ASN = input('Please enter the ASN: ')
 ASNinfo = getPeeringDB(ASN)['data'][0]
@@ -49,9 +57,28 @@ commands = ''
 #print(ASNinfo)
 ASNdesc = ASNinfo['name'] + ' ' + ASNinfo['poc_set'][0]['email']
 #print(ASNdesc)
+try:
+    with open('config.json') as json_data_file:
+        settings = json.load(json_data_file)
+        #print(settings['peeringdb_creds'])
+        if settings['peeringdb_creds']['username']:
+            peeringdb_username = settings['peeringdb_creds']['username']
+        else: print('You do not have a peeringdb username configured! We may be unable to get contact information depending on the organizations privacy settings.')
+        if settings['peeringdb_creds']['password']: 
+            peeringdb_password = settings['peeringdb_creds']['password']
+        else: print('You do not have a peeringdb password configured! We may be unable to get contact information depending on the organizations privacy settings.')
+        if settings['ASN']: ASNtoMatch = settings['ASN']
+except Exception as ex:
+        print("Couldn't load configuration file config.json! Details: " + str(ex))
 
-HV_IX_LIST = getPeeringDB('29802')['data'][0]['netixlan_set']
-ixs_in_common = intersection(HV_IX_LIST,ixs)
+MATCH_IX_LIST = getPeeringDB(ASNtoMatch)['data'][0]['netixlan_set']
+ixs_in_common = intersection(MATCH_IX_LIST,ixs)
+for ix in ixs_in_common:
+    for IX_NAME in settings['FRIENDLY_IX_NAMES']:
+        #print('IX Name: ' + IX_NAME + '\n' + 'IX Friendly Name: ' + settings['FRIENDLY_IX_NAMES'].get(FRIENDLY_NAME))
+        if ix['name'] == IX_NAME:
+            #print('Found matching IX! ' + ix['name'])
+            ix['name'] = settings['FRIENDLY_IX_NAMES'].get(IX_NAME)
 #print("IX's in common: ")
 #print(ixs_in_common)
 for ix in ixs_in_common:
@@ -79,13 +106,3 @@ f = open('bgp_config.txt','w+')
 f.write(commands)
 f.close()
 print('Commands written to file bgp_config.txt!')
-"""
-print('IX List:')
-for ix in ixs:
-    IXInfo = getIXInfo(ix['ix_id'])['data']
-    print('IX ID: ' + str(IXInfo[0]['id']))
-    print('IX Name: ' + str(IXInfo[0]['name']))
-    print('Organization Name: ' + str(IXInfo[0]['name_long']))
-    print('Contact Email: ' + str(IXInfo[0]['tech_email']))
-    print('IX City: ' + str(IXInfo[0]['city'] + '\n'))
-"""
