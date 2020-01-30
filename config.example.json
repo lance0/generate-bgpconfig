@@ -7,7 +7,8 @@
         "FL-IX" : "MIA-FLIX",
         "DE-CIX Dallas: DE-CIX Dallas Peering LAN" : "DAL1-DECIX",
         "Equinix Dallas" : "DAL1-EQUINIX-PEER",
-        "DE-CIX Frankfurt: DE-CIX Frankfurt Peering LAN" : "FRA1-DECIX"
+        "DE-CIX Frankfurt: DE-CIX Frankfurt Peering LAN" : "FRA1-DECIX",
+        "CoreSite - Any2 California" : "CoreSite-Any2-California"
     },
     "peeringdb_creds" : {
         "username" : "",
