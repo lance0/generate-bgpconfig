@@ -29,7 +29,7 @@ def getPeeringDB(ASN):
     """
     HTTP_OK = 200
     pdb_url = 'https://api.peeringdb.com/api/net?asn__in=%s&depth=2' % ASN
-    print("Fetching PeeringDB info for %s" % ASN)
+    #print("Fetching PeeringDB info for %s" % ASN)
     r = requests.get(pdb_url)
     if r.status_code != HTTP_OK:
         print("Got unexpected status code, exiting")
@@ -38,6 +38,9 @@ def getPeeringDB(ASN):
     pdb_res = r.json()
     return pdb_res
 
+def intersection(list1,list2):
+    returnList = [value for value in list1 if value in list2]
+    return returnList
 
 ASN = input('Please enter the ASN: ')
 ASNinfo = getPeeringDB(ASN)['data'][0]
@@ -46,7 +49,12 @@ commands = ''
 #print(ASNinfo)
 ASNdesc = ASNinfo['name'] + ' ' + ASNinfo['poc_set'][0]['email']
 #print(ASNdesc)
-for ix in ixs:
+
+HV_IX_LIST = getPeeringDB('29802')['data'][0]['netixlan_set']
+ixs_in_common = intersection(HV_IX_LIST,ixs)
+#print("IX's in common: ")
+#print(ixs_in_common)
+for ix in ixs_in_common:
     #ixinfo = getIXInfo(ix['ix_id'])
     #groupname = str(ixinfo['data'][0]['name'])# + '-' + ixinfo['data'][0]['city']
     groupname = ix['name']
