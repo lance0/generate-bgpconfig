@@ -1,4 +1,5 @@
 ✔ Only add IX's we are in @done(20-01-30 09:29)
 ✔ Provide friendly names for each IX based on the ID from peeringdb, they will need to be mapped in a file or hard coded. Use these friendly names in the juniper BGP group instead of direct pull from peeringdb @done(20-01-30 11:05)
 ✔ Create and implement config file with IX name mappings, peeringDB credentials, and main ASN for common peering points @done(20-01-30 11:05)
-☐ Add arguments for ASN so script can be started with arguments
+☐ Add arguments for ASN so script can be started without input
+☐ Pull Juniper configuration from a separate jinja2 template or include in config.json instead of hardcoded
