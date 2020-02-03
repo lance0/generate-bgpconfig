@@ -1,0 +1,12 @@
+set protocols bgp group {{ groupname }} neighbor {{ groupipv4 }} mtu-discovery
+set protocols bgp group {{ groupname }} neighbor {{ groupipv4 }} import {{ groupname }}-ipv4-inbound
+set protocols bgp group {{ groupname }} neighbor {{ groupipv4 }} export {{ groupname }}-ipv4-outbound
+set protocols bgp group {{ groupname }} neighbor {{ groupipv4 }} peer-as {{ asn }}
+set protocols bgp group {{ groupname }} neighbor {{ groupipv4 }} description "{{ ASNdesc }}"
+set protocols bgp group {{ groupname }} neighbor {{ groupipv4 }} family inet unicast
+set protocols bgp group {{ groupname }} neighbor {{ groupipv6 }} mtu-discovery
+set protocols bgp group {{ groupname }} neighbor {{ groupipv6 }} import {{ groupname }}-ipv6-inbound
+set protocols bgp group {{ groupname }} neighbor {{ groupipv6 }} export {{ groupname }}-ipv6-outbound
+set protocols bgp group {{ groupname }} neighbor {{ groupipv6 }} peer-as {{ asn }}
+set protocols bgp group {{ groupname }} neighbor {{ groupipv6 }} description "{{ ASNdesc }}"
+set protocols bgp group {{ groupname }} neighbor {{ groupipv6 }} family inet6 unicast
