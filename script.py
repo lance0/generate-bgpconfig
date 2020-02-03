@@ -1,10 +1,14 @@
 import requests
 import json
+import os.path
 from requests.auth import HTTPBasicAuth
+from shutil import copyfile
 
 peeringdb_username = ''
 peeringdb_password = ''
 ASNtoMatch = '29802'
+if not os.path.isfile('config.json'):
+    if os.path.isfile('config.example.json'): copyfile ('config.example.json','config.json')
 try:
     with open('config.json') as json_data_file:
         settings = json.load(json_data_file)
@@ -70,12 +74,25 @@ def check_dupes(dict1,dict2):
         for ix2 in dict2:
             if ix['name'] == ix2['name']: dupes.append(ix2)
     return dupes
-
-ASN = input('Please enter the ASN: ')
-ASNinfo = getPeeringDB(ASN)['data'][0]
+valid_ASN = False
+while valid_ASN == False:
+    ASN = input('Please enter the ASN: ')
+    try:
+        ASNinfo = getPeeringDB(ASN)['data'][0]
+        valid_ASN = True
+    except Exception as ex:
+        print('Exception occurred looking up ASN! Details: ' + str(ex))
 ixs = ASNinfo['netixlan_set']
 commands = ''
-ASNdesc = ASNinfo['name'] + ' (' + ASNinfo['poc_set'][0]['email'] + ')'
+try:
+    ASNdesc = ASNinfo['name']
+    ASNdesc = ASNinfo['name'] + ' (' + ASNinfo['poc_set'][0]['email'] + ')'
+except Exception as ex:
+    print('Exception occurred getting contact information! Details: ' + str(ex))
+    userInput = input('Continuing may cause configuration generated to be incomplete (likely missing contact information / email addresses). Continue? y / n : ')
+    if userInput != 'y':
+        exit(1)
+
 MATCH_IX_LIST = getPeeringDB(ASNtoMatch)['data'][0]['netixlan_set']
 ixs_in_common = check_dupes(MATCH_IX_LIST,ixs)
 
