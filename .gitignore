@@ -2,3 +2,5 @@
 bgp_config.txt
 # do not check in edited / live configuration as it may have creds etc
 config.json
+# do not check in .set files
+*.set
