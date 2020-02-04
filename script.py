@@ -61,7 +61,20 @@ def check_dupes(dict1,dict2):
     dupes = []
     for ix in dict1:
         for ix2 in dict2:
-            if ix['name'] == ix2['name']: dupes.append(ix2)
+            if ix['ix_id'] == ix2['ix_id']: 
+                #print('Peering point found! ID ' + str(ix2['ix_id']))
+                #print(dupes)
+                in_list = False
+                for peer in dupes:
+                    if peer['ipaddr4'] == ix2['ipaddr4']: in_list = True
+                    if peer['ipaddr6'] == ix2['ipaddr6']: in_list = True
+                if not in_list: dupes.append(ix2)
+                #dupes.append(ix2)
+    #print(str(dupes))
+    #print('check_dupes completed')
+    #print('dict1 is ' + str(dict1))
+    #print('dict2 is ' + str(dict2))
+    #print(str(dupes))
     return dupes
 valid_ASN = False
 while valid_ASN == False:
@@ -84,16 +97,20 @@ except Exception as ex:
 
 MATCH_IX_LIST = getPeeringDB(ASNtoMatch)['data'][0]['netixlan_set']
 ixs_in_common = check_dupes(MATCH_IX_LIST,ixs)
-
+#print('Common IXs: ' + str(ixs_in_common))
+#print('Converting to friendly names')
 for ix in ixs_in_common:
     for IX_NAME in settings['FRIENDLY_IX_NAMES']:
         #print('IX Name: ' + IX_NAME + '\n' + 'IX Friendly Name: ' + settings['FRIENDLY_IX_NAMES'].get(FRIENDLY_NAME))
         #print('Checking for ' + ix['name'] + ', against ' + IX_NAME)
         if ix['name'] == IX_NAME:
             #print('Found matching IX! ' + ix['name'])
+            #print(ix)
             ix['name'] = settings['FRIENDLY_IX_NAMES'].get(IX_NAME)
 
+#print('Common IXs: ' + str(ixs_in_common))
 
+#print('Without Dupes: ' + str(list(dict.fromkeys(ixs_in_common))))
 for ix in ixs_in_common:
     groupname = ix['name']
     groupipv4 = ix['ipaddr4']
