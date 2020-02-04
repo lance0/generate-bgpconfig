@@ -103,7 +103,7 @@ for ix in ixs_in_common:
     groupFile = open(groupFilename,'w+')
     template = Template(f.read()).render(groupname=groupname,groupipv4=groupipv4,groupipv6=groupipv6,ASNdesc=ASNdesc)
     commands += template
-    groupFile.write(commands)
+    groupFile.write(template)
     groupFile.close()
     print('Commands written to file ' + groupFilename + '!')
 
@@ -113,4 +113,4 @@ f.write(commands)
 f.close()
 print('Commands written to file config_full.set!')
 userInput = input('Would you like to view the full commands? ')
-if userInput == 'y' or userInput == 'Y': print(commands)
+if userInput.lower().strip()[0] == 'y': print(commands)
