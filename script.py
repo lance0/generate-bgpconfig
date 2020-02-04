@@ -100,10 +100,11 @@ for ix in ixs_in_common:
     groupipv6 = ix['ipaddr6']
     f = open('template.j2','r')
     groupFilename = groupname + '-AS' + str(ix['asn']) + '.set'
-    groupFile = open(groupFilename,'w+')
-    template = Template(f.read()).render(groupname=groupname,groupipv4=groupipv4,groupipv6=groupipv6,ASNdesc=ASNdesc)
+    groupFile = open(groupFilename,'a+')
+    template = Template(f.read()).render(groupname=groupname,groupipv4=groupipv4,groupipv6=groupipv6,asn=ASN,ASNdesc=ASNdesc)
     commands += template
     groupFile.write(template)
+    #groupFile.append(template)
     groupFile.close()
     print('Commands written to file ' + groupFilename + '!')
 
