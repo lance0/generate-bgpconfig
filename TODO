@@ -3,3 +3,4 @@
 ✔ Create and implement config file with IX name mappings, peeringDB credentials, and main ASN for common peering points @done(20-01-30 11:05)
 ☐ Add arguments for ASN so script can be started without input
 ☐ Pull Juniper configuration from a separate jinja2 template or include in config.json instead of hardcoded
+☐ Pull Prefix limits from peeringDB
